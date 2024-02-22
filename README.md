@@ -1,6 +1,8 @@
 # laravel-filebeat-elk
 Laravel Log Management Using Filebeat + ELK (Elastic Search, Logstash and Kibana)
 
+<img src="https://dytvr9ot2sszz.cloudfront.net/wp-content/uploads/2017/06/shippers-diagram.jpg"/>
+
 ## About 
 
 Log management is one of the most important parts of your application especially when your application grows, in the mature application with heavy load it’s very crucial to track the event that occur in the system to avoid from a disaster situation and system collapse and solution is log management involves storing, rotation, filter, visualization and analysis
