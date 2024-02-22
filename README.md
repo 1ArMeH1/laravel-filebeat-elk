@@ -20,4 +20,4 @@ Note: You could read my medium article about Laravel Log Management Using Filebe
 
 ## Post Man Collection
 
-<a href="https://medium.com">PostMan Collection</a>
+[a relative link](https://github.com/1ArMeH1/laravel-filebeat-elk/blob/main/ELK-log-management.postman_collection.json)
