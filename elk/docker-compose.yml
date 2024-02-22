@@ -1,0 +1,93 @@
+version: "3.8"
+name: laravel-log-manager
+
+networks:
+    elk-network:
+        driver: bridge
+
+volumes:
+    elastic-data-vl:
+
+services:
+    elasticsearch:
+        image: elasticsearch:8.11.1
+        container_name: elasticsearch
+        restart: always
+        volumes:
+            - elastic-data-vl:/usr/share/elasticsearch/data/
+        environment:
+            ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+            bootstrap.memory_lock: true
+            discovery.type: single-node
+            xpack.license.self_generated.type: basic
+            xpack.security.enabled: false
+        ports:
+            - "9200:9200"
+            - "9300:9300"
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        networks:
+            - elk-network
+
+    Logstash:
+        image: logstash:8.11.1
+        container_name: logstash
+        restart: always
+        volumes:
+            - ./logstash/:/logstash_dir
+        command: logstash -f /logstash_dir/logstash.conf
+        depends_on:
+            - elasticsearch
+        ports:
+            - "5044:5044"
+            - "9600:9600"
+        environment:
+            LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+        networks:
+            - elk-network
+
+    Kibana:
+        image: kibana:8.11.1
+        container_name: kibana
+        restart: always
+        ports:
+            - "5601:5601"
+        environment:
+            - ELASTICSEARCH_URL=http://elasticsearch:9200
+        depends_on:
+            - elasticsearch
+        networks:
+            - elk-network
+
+    filebeat:
+        image: elastic/filebeat:8.11.1
+        container_name: filebeat
+        user: root
+        platform: linux/amd64
+        volumes:
+            - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+            - ../storage/logs:/var/log/ELK-log-manager #Be careful about this line if you put this file in another path this line maybe need change (in my case I put 'docker-compose.yml' in directory named 'elk' which placed in the root of Laravel app so to reach the path of log files I use '../storage/logs')
+        environment:
+            - monitoring.enabled= true
+        depends_on:
+            - Logstash
+            - elasticsearch
+        command: ["--strict.perms=false"]
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        stdin_open: true
+        tty: true
+        deploy:
+            mode: global
+        logging:
+            driver: 'json-file'
+            options:
+                max-size: '12m'
+                max-file: "100"
+
+        networks:
+            - elk-network

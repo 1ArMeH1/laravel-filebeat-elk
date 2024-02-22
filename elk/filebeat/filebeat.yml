@@ -1,0 +1,16 @@
+filebeat.inputs:
+- type: log
+  enable: true
+  paths:
+    - /var/log/ELK-log-manager/*.log #Attention: path '/var/log/ELK-log-manager' must be exact the path that you defined in filebeat volume in docker-compose.yml
+
+
+output.logstash:
+  hosts: ["logstash:5044"]
+
+logging.json: true
+logging.metrics.enable: false
+
+logging:
+  files:
+    rotationeverybytes: 12582912
