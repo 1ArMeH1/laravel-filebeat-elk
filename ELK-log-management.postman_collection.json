@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "22665ffb-1d31-4a85-8ab1-b038971792ca",
+		"name": "ELK-log-management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8751939"
+	},
+	"item": [
+		{
+			"name": "GetUserById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/api/get-user/1",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"get-user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LogInfo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/api/log-info?AddAnyParamYouWanted=10000",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"log-info"
+					],
+					"query": [
+						{
+							"key": "AddAnyParamYouWanted",
+							"value": "10000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LogWarning",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/api/log-warning?AddAnyParamYouWanted=2",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"log-warning"
+					],
+					"query": [
+						{
+							"key": "AddAnyParamYouWanted",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LogError",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/api/log-error?AddAnyParamYouWanted=test",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"log-error"
+					],
+					"query": [
+						{
+							"key": "AddAnyParamYouWanted",
+							"value": "test"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LogAlert",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/api/log-alert?AddAnyParamYouWanted=Alert",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"log-alert"
+					],
+					"query": [
+						{
+							"key": "AddAnyParamYouWanted",
+							"value": "Alert"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseUrl",
+			"value": "localhost:8000",
+			"type": "string"
+		}
+	]
+}
